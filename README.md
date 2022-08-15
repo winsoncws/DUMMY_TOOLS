@@ -34,7 +34,7 @@ We first design the `User Requirement Specification (URS)` of the product (e.g. 
 
 Each Specification level is coupled with its Validation Test.
 
-```
+```bash
 --> URS ---------------> UAT    UserAcceptanceTest
       \                  /
       FS ------------> IT       IntegrationTest
@@ -59,7 +59,7 @@ There are certain rules to comply:
 
 
 To execution unit-testing, we need to install relevant pip packages.
-```
+```bash
 below are those pip packages needed to run pytest and generate html-report and code coverage.
 the current version I am using:
 
@@ -71,7 +71,7 @@ pytest-metadata               2.0.2
 ```
 
 To generate unit-test report:
-```
+```python
 cd AI-Brain-MRI
 
 1) UT
@@ -109,7 +109,7 @@ __FUTURE PLAN :__ refactor script into one test folder which can be executed in 
 ### More about how to maintain pytest
 
 there are a few important files which are essential for pytest configuration:
-```
+```bash
 
 AI-Brain-MRI
   |- test_iso
@@ -154,7 +154,7 @@ AI-Brain-MRI
 - inside each DS (DESIGN tag) contains a list of (DS_CODE, TEST, DESC)
 - unit-test test_number has to be identical with DS specs_number. Both are matched together via `TEST` inside list of DESIGN. Value of `TEST` is name of the pytest test_function. For example:
 
-```
+```python
 test_script.py
 @pytest.mark.unittest()
 def test_lesion_segmentation():
