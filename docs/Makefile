@@ -7,7 +7,7 @@ SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 SPHINXPROJ    = DUMMY
 SOURCEDIR     = .
-BUILDDIR      = build
+BUILDDIR      = ../../DUMMY_TOOLS_DOCS
 
 # Put it first so that "make" without argument is like "make help".
 help:
