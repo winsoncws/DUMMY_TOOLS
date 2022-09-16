@@ -19,12 +19,36 @@ class Main:
 
         Parameters
         ----------
-        x : TYPE
-            DESCRIPTION.
+        x : int
+            this is the ``description`` for `x`
+            
+            .. versionadded:: 1.0.0
 
         Returns
         -------
-        None.
-
+        out : ndarray
+            this is the ``description`` for `out`
+            
+        See Also
+        --------
+        Main.backward : backward process
+        
+        References
+        ----------
+        www.randomwebsite.com
+        
+        Examples
+        --------
+        >>> import numpy as np
+        >>> main = Main()
+        """
+        
+        out = x
+        return out
+    
+    def backward(self, x):
+        """
+        backward process
         """
         pass
+    
