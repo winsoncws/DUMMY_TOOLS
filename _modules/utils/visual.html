@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>utils.visual &mdash; Dummy Manual</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/horse.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> DummyToolsProject
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../utils/profiler.html">Profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../utils/visual.html">Visual</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">DummyToolsProject</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>utils.visual</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for utils.visual</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1">################################ CONFIGURATION #################################</span>
+<span class="n">ADD_CLR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ADD_PRINTOUT_COLOUR&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">ADD_CLR</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;0&quot;</span>     <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s2">&quot;-1&quot;</span>    <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s2">&quot;False&quot;</span> <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s2">&quot;1&quot;</span>     <span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;True&quot;</span>  <span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ADD_CLR</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VISUALCONFIG"><a class="viewcode-back" href="../../utils/visual.html#utils.visual.VISUALCONFIG">[docs]</a><span class="k">class</span> <span class="nc">VISUALCONFIG</span><span class="p">:</span>
+    <span class="n">add_printout_color</span> <span class="o">=</span> <span class="n">ADD_CLR</span> <span class="c1"># boolean, if True return strings, else only display stdout</span>
+    <span class="n">return_string</span>      <span class="o">=</span> <span class="kc">False</span>   <span class="c1"># boolean, if True return strings, else only display stdout</span></div>
+    
+<span class="n">VISUAL_CONFIG</span> <span class="o">=</span> <span class="n">VISUALCONFIG</span><span class="p">()</span>
+<span class="c1">################################################################################</span>
+
+
+<div class="viewcode-block" id="header"><a class="viewcode-back" href="../../utils/visual.html#utils.visual.header">[docs]</a><span class="k">def</span> <span class="nf">header</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">filler</span><span class="o">=</span><span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="n">pop</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;print the content `x`, align centered, with filler `n` of length `n` &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">filler</span><span class="o">*</span><span class="n">n</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">x</span>     <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">l</span>     <span class="o">=</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">front</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+        <span class="n">end</span>   <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="k">if</span> <span class="n">l</span><span class="o">%</span><span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+        <span class="n">f</span>     <span class="o">=</span> <span class="n">filler</span><span class="o">*</span><span class="n">front</span><span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span><span class="n">x</span><span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span><span class="n">filler</span><span class="o">*</span><span class="n">end</span>
+    <span class="k">return</span> <span class="n">printc</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">pop</span><span class="o">=</span><span class="n">pop</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="printc"><a class="viewcode-back" href="../../utils/visual.html#utils.visual.printc">[docs]</a><span class="k">def</span> <span class="nf">printc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pop</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    if pop is True:</span>
+<span class="sd">        return only the string `x` or `colored(x)`</span>
+<span class="sd">    else:</span>
+<span class="sd">        display `x` or `colored(x)`&quot;&quot;&quot;</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">color</span> <span class="ow">or</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span>
+    <span class="n">pop</span>   <span class="o">=</span> <span class="n">pop</span> <span class="ow">or</span> <span class="n">VISUAL_CONFIG</span><span class="o">.</span><span class="n">return_string</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">color</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">if</span> <span class="n">VISUAL_CONFIG</span><span class="o">.</span><span class="n">add_printout_color</span> <span class="k">else</span> <span class="n">x</span>
+    <span class="k">if</span> <span class="n">pop</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="join_str"><a class="viewcode-back" href="../../utils/visual.html#utils.visual.join_str">[docs]</a><span class="k">def</span> <span class="nf">join_str</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">args</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="white"><a class="viewcode-back" href="../../utils/visual.html#utils.visual.white">[docs]</a><span class="k">def</span> <span class="nf">white</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">pop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">printc</span><span class="p">(</span><span class="n">join_str</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">),</span> <span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[1;37m</span><span class="si">{}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">,</span> <span class="n">pop</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="black"><a class="viewcode-back" href="../../utils/visual.html#utils.visual.black">[docs]</a><span class="k">def</span> <span class="nf">black</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">pop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">printc</span><span class="p">(</span><span class="n">join_str</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">),</span> <span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[30m</span><span class="si">{}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">,</span> <span class="n">pop</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="dred"><a class="viewcode-back" href="../../utils/visual.html#utils.visual.dred">[docs]</a><span class="k">def</span> <span class="nf">dred</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">pop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">printc</span><span class="p">(</span><span class="n">join_str</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">),</span> <span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[31m</span><span class="si">{}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">,</span>  <span class="n">pop</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="dgreen"><a class="viewcode-back" href="../../utils/visual.html#utils.visual.dgreen">[docs]</a><span class="k">def</span> <span class="nf">dgreen</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">pop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">printc</span><span class="p">(</span><span class="n">join_str</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">),</span> <span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[32m</span><span class="si">{}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">,</span> <span class="n">pop</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="green"><a class="viewcode-back" href="../../utils/visual.html#utils.visual.green">[docs]</a><span class="k">def</span> <span class="nf">green</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">pop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">printc</span><span class="p">(</span><span class="n">join_str</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">),</span> <span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[36m</span><span class="si">{}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">,</span> <span class="n">pop</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="lgreen"><a class="viewcode-back" href="../../utils/visual.html#utils.visual.lgreen">[docs]</a><span class="k">def</span> <span class="nf">lgreen</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">pop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">printc</span><span class="p">(</span><span class="n">join_str</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">),</span> <span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[1;32m</span><span class="si">{}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">,</span> <span class="n">pop</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="red"><a class="viewcode-back" href="../../utils/visual.html#utils.visual.red">[docs]</a><span class="k">def</span> <span class="nf">red</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">pop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">printc</span><span class="p">(</span><span class="n">join_str</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">),</span> <span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[1;31m</span><span class="si">{}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">,</span> <span class="n">pop</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="dblue"><a class="viewcode-back" href="../../utils/visual.html#utils.visual.dblue">[docs]</a><span class="k">def</span> <span class="nf">dblue</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">pop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">printc</span><span class="p">(</span><span class="n">join_str</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">),</span> <span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[34m</span><span class="si">{}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">,</span> <span class="n">pop</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="violet"><a class="viewcode-back" href="../../utils/visual.html#utils.visual.violet">[docs]</a><span class="k">def</span> <span class="nf">violet</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">pop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">printc</span><span class="p">(</span><span class="n">join_str</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">),</span> <span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[35m</span><span class="si">{}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">,</span> <span class="n">pop</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="cyan"><a class="viewcode-back" href="../../utils/visual.html#utils.visual.cyan">[docs]</a><span class="k">def</span> <span class="nf">cyan</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">pop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">printc</span><span class="p">(</span><span class="n">join_str</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">),</span> <span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[1;36m</span><span class="si">{}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">,</span> <span class="n">pop</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="grey"><a class="viewcode-back" href="../../utils/visual.html#utils.visual.grey">[docs]</a><span class="k">def</span> <span class="nf">grey</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">pop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">printc</span><span class="p">(</span><span class="n">join_str</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">),</span> <span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[37m</span><span class="si">{}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">,</span> <span class="n">pop</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="yellow"><a class="viewcode-back" href="../../utils/visual.html#utils.visual.yellow">[docs]</a><span class="k">def</span> <span class="nf">yellow</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">pop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">printc</span><span class="p">(</span><span class="n">join_str</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">),</span> <span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[1;33m</span><span class="si">{}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">,</span> <span class="n">pop</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="pink"><a class="viewcode-back" href="../../utils/visual.html#utils.visual.pink">[docs]</a><span class="k">def</span> <span class="nf">pink</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">pop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">printc</span><span class="p">(</span><span class="n">join_str</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">),</span> <span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[1;35m</span><span class="si">{}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">,</span> <span class="n">pop</span><span class="p">)</span></div>
+
+
+
+
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NoCopyright.
+      <span class="lastupdated">Last updated on Sep 19, 2022.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
