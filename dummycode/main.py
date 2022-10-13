@@ -52,17 +52,18 @@ class Main(Sub):
         forward processes.
 
         Parameters:
-            x : (int)
+            x (int) : 
                 this is the ``description`` for `x`
                 
                 .. versionadded:: 1.0.0
+                .. deprecated:: 1.6.0
 
         Returns:
-            out : (ndarray)
+            out (ndarray) : 
                   this is the ``description`` for `out`
             
         See Also:
-            Sub : Sub class
+            :func:`Sub` : Sub class
         
         References:
             https://docs.readthedocs.io/en/latest/index.html

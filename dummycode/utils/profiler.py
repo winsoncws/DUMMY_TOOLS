@@ -1,47 +1,50 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# @author: winson
 """
-@author: winson
+This is smart-profiling script to track the performance of any ``class object`` or ``function``.
 
-This is smart-profiling script to track the performance of any `class object` or functions.
-
-
-
-HOW TO USE:
-OPTIONS 1 :--
-to only profile certain `function` or `class`,
-inside the script:
+**HOW TO USE:**
     
-from profiler import profiling
+| **OPTIONS 1:**
+| to only profile certain `function` or `class`,
+| inside the script:
 
-@profiling()
-class Model:
-    def function1():
-        pass
-    
-    def function2():
-        pass
+>>> from profiler import profiling
+>>> @profiling()
+>>> class Model:
+>>>     def function1():
+>>>         pass
+>>>     
+>>>     def function2():
+>>>         pass
+>>> 
+>>> model = Model()
+>>> model.function1()              # <-- it shows the breakdown of all time spend in this operation
+>>> model.function2()              # <-- it shows the breakdown of all time spend in this operation
+>>> show_profiling_in_timeseries() # <-- it shows time spend of this ops in chronological order
 
-model = Model()
-model.function1()              # <-- it shows the breakdown of all time spend in this operation
-model.function2()              # <-- it shows the breakdown of all time spend in this operation
-show_profiling_in_timeseries() $ <-- it shows time spend of this ops in chronological order
 
 
-OPTIONS 2 :--
-to profile all classes and functions in a module-script,
-we assume the folder is as such:
-- folder
-    |- __init__.py
-    |- api.py
-    |- utils.py
-    |- models.py
-    |- io.py
-    
-then, inside __init__.py, add in this:
-    from dummycode.utils.profiler import init_profiling
-    from . import api     # <-- or import any module-script which needs profiling.
-    init_profiling(api)   # <-- it crawls all classes and functions in script, and add `time-profiler` to all of them.
+| **OPTIONS 2 :**
+| to profile all classes and functions in a module-script
+| we assume the folder is as such:
+|    ├─ folder
+|       ├─ __init__.py
+|       ├─ api.py
+|       ├─ utils.py
+|       ├─ models.py
+|       ├─ io.py
+
+>>> inside __init__.py, add in below:
+>>> from dummycode.utils.profiler import init_profiling
+>>> from . import api     # <-- or import any module-script which needs profiling.
+>>> init_profiling(api)   # <-- it crawls all classes and functions in script, and add `time-profiler` to all of them.
+
+
+
+====
+
 
 """
 
@@ -67,21 +70,22 @@ PROFILING = {
     }.get(PROFILING, True)
 
 class PROFILECONFIG:
-    show_profiling           = PROFILING
-    visual_config            = VISUAL_CONFIG
-    max_profiler_disp        = 70
-    expanded_tree_tab_deco   = '  '
-    expanded_tree_bullets    = '|-> '
+    def __init__(self):
+        self.show_profiling           = PROFILING
+        self.visual_config            = VISUAL_CONFIG
+        self.max_profiler_disp        = 70
+        self.expanded_tree_tab_deco   = '  '
+        self.expanded_tree_bullets    = '|-> '
     
 PROFILE_CONFIG = PROFILECONFIG()
 ################################################################################
 
 
-def print_(*args, **kwargs):
+def _print(*args, **kwargs):
     if PROFILE_CONFIG.show_profiling:
         return print(*args, **kwargs)
 
-def head(x,n=80, pop=True):
+def _head(x,n=80, pop=True):
     if PROFILE_CONFIG.show_profiling:
         return header(x,n=n,pop=True)
 
@@ -91,7 +95,7 @@ overall_timestamp = []
 reset_new_profile = True
 longest_name      = 0
 
-def reset_profiler():
+def _reset_profiler():
     global overall_profile
     global overall_timestamp
     global reset_new_profile
@@ -100,11 +104,10 @@ def reset_profiler():
     overall_timestamp = []
     
 
-def show_profiling_stats():
+def _show_profiling_stats():
     global overall_profile
-    global overall_timestamp
     global longest_name
-    cyan(head('PROFILING STATS (AVERAGE)'))
+    cyan(_head('PROFILING STATS (AVERAGE)'))
     longest_name = min(max([len(i) for i in overall_profile.keys()]), PROFILE_CONFIG.max_profiler_disp)
     for k,vs in overall_profile.items():
         k = str(k).ljust(longest_name)
@@ -116,21 +119,10 @@ def show_profiling_stats():
         name = f"{k[:longest_name]} : "
         if float(T) > 1 and '.predict_preprocess' not in k:
             name = highlight.format(name[5:])
-        print_(name+t+D) 
+        _print(name+t+D) 
 
 
 def profiling_stats_track(func):
-    """
-        to calc the function execution time.
-        How to use:
-        
-        @profiling_stats_main
-        def resize(x):
-            return cv2.resize(x,(10,10))
-        
-        resize(np.ones((3000,3000))).shape
-        >>> time for resize :  0.000149
-    """
     @wraps(func)
     def time_function(*args, **kwargs):
         global reset_new_profile
@@ -138,7 +130,7 @@ def profiling_stats_track(func):
         global overall_timestamp
         profiling_main_node = False
         if reset_new_profile:
-            reset_profiler()
+            _reset_profiler()
             profiling_main_node = True
             reset_new_profile   = False
         s = time.time()
@@ -150,13 +142,29 @@ def profiling_stats_track(func):
         overall_timestamp.insert(0,(s,e,duration,name))
         if profiling_main_node:
             if PROFILING:
-                print_("Overall time for {} \t : {}s".format(name,duration))
-                show_profiling_stats()
+                _print("Overall time for {} \t : {}s".format(name,duration))
+                _show_profiling_stats()
                 reset_new_profile = True
         return x
     return time_function 
 
 def profiling(decorator=profiling_stats_track):
+    """
+        to calculate the function execution time.
+    
+        Example
+        -------
+        >>> @profiling()
+        >>> def resize(x):
+        >>>     return cv2.resize(x,(10,10))
+        >>>
+        >>> resize(np.ones((3000,3000))) # <-- display time spent for this operation
+        
+        See also
+        --------
+        :func: show_profiling_in_timeseries
+        
+    """
     def decorate_cls(cls):
         for attr in cls.__dict__: # there's propably a better way to do this
             if callable(getattr(cls, attr)) and not any([attr == n for n in ['__init__']]):
@@ -189,7 +197,7 @@ def show_profiling_in_timeseries(maxlvl=None):
         if not start:
             start.append(s)
             end.append(e)
-            head("Profiling in Sequence",pop=False)
+            _head("Profiling in Sequence",pop=False)
         while end and s > end[-1]:
             level -= 1
             start.pop()
@@ -214,7 +222,19 @@ def init_profiling(module):
                 module.__dict__[name] = profiling()(func)
 
 
+class __Indenter:
+    def __init__(self):
+        self.level = -1
 
+    def __enter__(self):
+        self.level += 1
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_tb):
+        self.level -= 1
+
+    def print(self, text):
+        print("    " * self.level + text)
 
 ################ TESTING ###############
 if __name__ == '__main__':
